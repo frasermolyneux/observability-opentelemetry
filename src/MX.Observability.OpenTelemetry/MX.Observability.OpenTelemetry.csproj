@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+    <RootNamespace>MX.Observability.OpenTelemetry</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>MX.Observability.OpenTelemetry</PackageId>
+    <Product>MX Observability - OpenTelemetry</Product>
+    <Title>OpenTelemetry Telemetry Filtering, Audit Logging, and Job Telemetry</Title>
+    <Description>Hosting-agnostic core for MX Observability: telemetry filter processor implementation, configurable filter options (dependencies, requests, traces), structured audit logging with category-specific builders, and scheduled job telemetry. Reference one of the host-specific adapter packages (MX.Observability.OpenTelemetry.AspNetCore or MX.Observability.OpenTelemetry.WorkerService) to wire the filter into the OpenTelemetry pipeline.</Description>
+    <PackageProjectUrl>https://github.com/frasermolyneux/observability-opentelemetry</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/frasermolyneux/observability-opentelemetry</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.5" />
+    <PackageReference Include="OpenTelemetry" Version="1.12.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="MX.Observability.OpenTelemetry.Tests" />
+  </ItemGroup>
+
+</Project>

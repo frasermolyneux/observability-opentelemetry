@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+    <RootNamespace>MX.Observability.OpenTelemetry.WorkerService</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>MX.Observability.OpenTelemetry.WorkerService</PackageId>
+    <Product>MX Observability - OpenTelemetry (Worker Service)</Product>
+    <Title>OpenTelemetry Telemetry Filtering for Worker Service / Functions Isolated</Title>
+    <Description>Worker Service adapter for MX.Observability.OpenTelemetry. Wires the configurable telemetry filter into the OpenTelemetry pipeline and Azure Monitor exporters for Worker Services and Azure Functions isolated hosts.</Description>
+    <PackageProjectUrl>https://github.com/frasermolyneux/observability-opentelemetry</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/frasermolyneux/observability-opentelemetry</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Monitor.OpenTelemetry.Exporter" Version="1.4.0" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
+    <ProjectReference Include="..\MX.Observability.OpenTelemetry\MX.Observability.OpenTelemetry.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
