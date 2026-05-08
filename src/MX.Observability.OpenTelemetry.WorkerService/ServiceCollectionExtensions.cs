@@ -22,7 +22,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddObservability(this IServiceCollection services)
     {
         ValidateAzureMonitorConfiguration(services);
-        
+
         services.AddObservabilityCore();
         services.AddOpenTelemetry()
             .ConfigureResource(resource => resource.AddService("MX.Observability.OpenTelemetry"))
@@ -56,7 +56,7 @@ public static class ServiceCollectionExtensions
         Action<TelemetryFilterOptions> configureFiltering)
     {
         ValidateAzureMonitorConfiguration(services);
-        
+
         services.AddObservabilityCore(configureFiltering);
         services.AddOpenTelemetry()
             .ConfigureResource(resource => resource.AddService("MX.Observability.OpenTelemetry"))

@@ -29,7 +29,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddOptions<TelemetryFilterOptions>()
             .BindConfiguration(TelemetryFilterOptions.SectionName);
-        
+
         services.AddSingleton<IValidateOptions<TelemetryFilterOptions>, TelemetryFilterOptionsValidator>();
 
         services.AddSingleton<IAuditLogger, OpenTelemetryAuditLogger>();
@@ -48,7 +48,7 @@ public static class ServiceCollectionExtensions
         services.AddOptions<TelemetryFilterOptions>()
             .BindConfiguration(TelemetryFilterOptions.SectionName)
             .Configure(configureFiltering);
-        
+
         services.AddSingleton<IValidateOptions<TelemetryFilterOptions>, TelemetryFilterOptionsValidator>();
 
         services.AddSingleton<IAuditLogger, OpenTelemetryAuditLogger>();
