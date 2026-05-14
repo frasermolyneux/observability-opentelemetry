@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using MX.Observability.OpenTelemetry.Availability;
 using MX.Observability.OpenTelemetry.Auditing;
 using MX.Observability.OpenTelemetry.Filtering.Configuration;
 using MX.Observability.OpenTelemetry.Jobs;
@@ -32,6 +33,7 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<IValidateOptions<TelemetryFilterOptions>, TelemetryFilterOptionsValidator>();
 
+        services.AddSingleton<IAvailabilityTelemetry, OpenTelemetryAvailabilityTelemetry>();
         services.AddSingleton<IAuditLogger, OpenTelemetryAuditLogger>();
         services.AddSingleton<IJobTelemetry, OpenTelemetryJobTelemetry>();
 
@@ -51,6 +53,7 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<IValidateOptions<TelemetryFilterOptions>, TelemetryFilterOptionsValidator>();
 
+        services.AddSingleton<IAvailabilityTelemetry, OpenTelemetryAvailabilityTelemetry>();
         services.AddSingleton<IAuditLogger, OpenTelemetryAuditLogger>();
         services.AddSingleton<IJobTelemetry, OpenTelemetryJobTelemetry>();
 
@@ -63,6 +66,15 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddAuditLogging(this IServiceCollection services)
     {
         services.AddSingleton<IAuditLogger, OpenTelemetryAuditLogger>();
+        return services;
+    }
+
+    /// <summary>
+    /// Registers availability telemetry emission for Azure Monitor availability ingestion.
+    /// </summary>
+    public static IServiceCollection AddAvailabilityTelemetry(this IServiceCollection services)
+    {
+        services.AddSingleton<IAvailabilityTelemetry, OpenTelemetryAvailabilityTelemetry>();
         return services;
     }
 

@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MX.Observability.OpenTelemetry.Availability;
 using MX.Observability.OpenTelemetry.Auditing;
 using MX.Observability.OpenTelemetry.Filtering.Configuration;
 using MX.Observability.OpenTelemetry.Jobs;
@@ -22,6 +23,7 @@ public class WorkerServiceRegistrationTests
         services.AddObservability();
 
         using var provider = services.BuildServiceProvider();
+        Assert.NotNull(provider.GetService<IAvailabilityTelemetry>());
         Assert.NotNull(provider.GetService<IAuditLogger>());
         Assert.NotNull(provider.GetService<IJobTelemetry>());
         Assert.NotNull(provider.GetService<Microsoft.Extensions.Options.IOptionsMonitor<TelemetryFilterOptions>>());
