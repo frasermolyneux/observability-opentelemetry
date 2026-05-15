@@ -41,6 +41,15 @@ public sealed record AvailabilityTelemetryEntry
     public string? Id { get; init; }
 
     /// <summary>
+    /// Optional named target identifying which Application Insights sink should receive this entry.
+    /// Ignored by the default single-target <c>OpenTelemetryAvailabilityTelemetry</c> implementation;
+    /// consumers that need to fan availability data out to multiple Application Insights resources
+    /// can implement a custom <see cref="IAvailabilityTelemetry"/> that dispatches based on this
+    /// value (falling back to a default sink when null, empty, or unknown).
+    /// </summary>
+    public string? Target { get; init; }
+
+    /// <summary>
     /// Optional additional dimensions emitted with the availability entry.
     /// </summary>
     public IReadOnlyDictionary<string, string>? Properties { get; init; }
