@@ -17,7 +17,7 @@ public class RequestFilterTests
                 Enabled = true,
                 DurationThresholdMs = 1000,
                 SuccessOnly = true,
-                ExcludedPaths = "/healthz,/health",
+                ExcludedPaths = "/health/live,/health/ready",
                 ExcludedHttpMethods = "",
                 RetainedStatusCodes = "",
                 RetainedStatusCodeRanges = ""
@@ -31,7 +31,7 @@ public class RequestFilterTests
     public void ShouldFilter_HealthCheckPath_AlwaysFiltered()
     {
         var rules = CreateRules();
-        var req = CreateRequestActivity(durationMs: 5000, path: "/healthz", method: "GET", statusCode: 500, status: ActivityStatusCode.Error);
+        var req = CreateRequestActivity(durationMs: 5000, path: "/v1.0/health/live", method: "GET", statusCode: 500, status: ActivityStatusCode.Error);
 
         Assert.True(TracingFilterProcessor.ShouldFilterRequest(req, rules));
     }

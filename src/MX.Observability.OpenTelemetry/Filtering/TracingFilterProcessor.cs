@@ -107,7 +107,9 @@ public sealed class TracingFilterProcessor : BaseProcessor<Activity>
         // Always filter excluded paths (health checks)
         var path = ResolveRequestPath(request);
         if (!string.IsNullOrWhiteSpace(path) && rules.RequestExcludedPaths.Any(p =>
-            path.StartsWith(p, StringComparison.OrdinalIgnoreCase)))
+            path.Equals(p, StringComparison.OrdinalIgnoreCase) ||
+            path.EndsWith(p, StringComparison.OrdinalIgnoreCase) ||
+            path.Contains($"{p}/", StringComparison.OrdinalIgnoreCase)))
             return true;
 
         // Always filter excluded HTTP methods (OPTIONS, HEAD)
