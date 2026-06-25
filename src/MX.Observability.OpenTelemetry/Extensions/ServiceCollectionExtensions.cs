@@ -11,8 +11,8 @@ namespace MX.Observability.OpenTelemetry.Extensions;
 /// Extension methods for registering MX Observability core services.
 /// <para>
 /// This package contains the hosting-agnostic pieces: filter options binding, the
-/// <see cref="MX.Observability.OpenTelemetry.Filtering.TracingFilterProcessor"/> and
-/// <see cref="MX.Observability.OpenTelemetry.Filtering.LogRecordFilterProcessor"/> implementations,
+/// <see cref="Filtering.TracingFilterProcessor"/> and
+/// <see cref="Filtering.LogRecordFilterProcessor"/> implementations,
 /// audit logging and job telemetry. Consumers should normally reference one of the host-specific
 /// adapter packages (<c>MX.Observability.OpenTelemetry.AspNetCore</c> or
 /// <c>MX.Observability.OpenTelemetry.WorkerService</c>) which call <see cref="AddObservabilityCore"/>

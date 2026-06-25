@@ -28,7 +28,7 @@ public sealed class OpenTelemetryAvailabilityTelemetry : IAvailabilityTelemetry
             throw new ArgumentOutOfRangeException(nameof(entry), "Availability duration cannot be negative.");
 
         var availabilityId = !string.IsNullOrWhiteSpace(entry.Id)
-            ? entry.Id!
+            ? entry.Id
             : GetFallbackAvailabilityId();
 
         var state = new List<KeyValuePair<string, object?>>()
