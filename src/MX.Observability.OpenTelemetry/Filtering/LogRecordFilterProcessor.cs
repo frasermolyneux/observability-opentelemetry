@@ -65,25 +65,35 @@ public sealed class LogRecordFilterProcessor : BaseProcessor<LogRecord>
         ParsedFilterRules rules)
     {
         if (IsAuditEvent(attributes))
+        {
             return false;
+        }
 
         if (!string.IsNullOrWhiteSpace(category) && rules.LogExcludedCategories.Contains(category))
+        {
             return true;
+        }
 
         if (rules.LogExcludedMessageContains.Length > 0 && !string.IsNullOrWhiteSpace(formattedMessage))
         {
             foreach (var excluded in rules.LogExcludedMessageContains)
             {
                 if (formattedMessage.Contains(excluded, StringComparison.OrdinalIgnoreCase))
+                {
                     return true;
+                }
             }
         }
 
         if (!string.IsNullOrWhiteSpace(category) && rules.LogAlwaysRetainCategories.Contains(category))
+        {
             return false;
+        }
 
         if (logLevel < rules.LogMinSeverity)
+        {
             return true;
+        }
 
         // The configured minimum severity has been met (or exceeded), so retain the log.
         return false;
@@ -92,18 +102,26 @@ public sealed class LogRecordFilterProcessor : BaseProcessor<LogRecord>
     private static bool IsAuditEvent(IReadOnlyList<KeyValuePair<string, object?>>? attributes)
     {
         if (attributes is null)
+        {
             return false;
+        }
 
         foreach (var item in attributes)
         {
             if (!string.Equals(item.Key, "Audit.IsAuditEvent", StringComparison.Ordinal))
+            {
                 continue;
+            }
 
             if (item.Value is bool b)
+            {
                 return b;
+            }
 
             if (item.Value is string s && bool.TryParse(s, out var parsed))
+            {
                 return parsed;
+            }
         }
 
         return false;

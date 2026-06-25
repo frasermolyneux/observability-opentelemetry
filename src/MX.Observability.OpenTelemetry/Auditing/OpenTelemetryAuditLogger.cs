@@ -40,7 +40,9 @@ public sealed class OpenTelemetryAuditLogger : IAuditLogger
         SetIfNotNull(scope, "Audit.CorrelationId", auditEvent.CorrelationId);
 
         foreach (var (key, value) in auditEvent.Properties)
+        {
             scope[key] = value;
+        }
 
         using (_logger.BeginScope(scope))
         {
@@ -51,6 +53,8 @@ public sealed class OpenTelemetryAuditLogger : IAuditLogger
     private static void SetIfNotNull(IDictionary<string, object?> scope, string key, string? value)
     {
         if (!string.IsNullOrWhiteSpace(value))
+        {
             scope[key] = value;
+        }
     }
 }

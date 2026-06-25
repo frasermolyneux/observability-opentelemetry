@@ -132,16 +132,24 @@ public class DependencyFilterTests
         activity.Start();
 
         if (!string.IsNullOrWhiteSpace(method))
+        {
             activity.SetTag("http.request.method", method);
+        }
 
         if (!string.IsNullOrWhiteSpace(target))
+        {
             activity.SetTag("server.address", target);
+        }
 
         if (statusCode.HasValue)
+        {
             activity.SetTag("http.response.status_code", statusCode.Value);
+        }
 
         if (!string.IsNullOrWhiteSpace(dbSystem))
+        {
             activity.SetTag("db.system", dbSystem);
+        }
 
         activity.SetStatus(status);
         activity.SetEndTime(end);

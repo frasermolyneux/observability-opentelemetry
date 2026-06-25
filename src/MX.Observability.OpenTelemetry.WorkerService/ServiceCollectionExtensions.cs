@@ -88,11 +88,15 @@ public static class ServiceCollectionExtensions
     {
         var connectionString = Environment.GetEnvironmentVariable("APPLICATIONINSIGHTS_CONNECTION_STRING");
         if (!string.IsNullOrWhiteSpace(connectionString))
+        {
             return;
+        }
 
         if (TryGetApplicationInsightsConnectionString(services, out connectionString) &&
             !string.IsNullOrWhiteSpace(connectionString))
+        {
             return;
+        }
 
         throw new InvalidOperationException(
             "Azure Monitor connection string not configured. Set APPLICATIONINSIGHTS_CONNECTION_STRING environment variable or configure 'ConnectionStrings:ApplicationInsights' in appsettings.json");
@@ -106,7 +110,9 @@ public static class ServiceCollectionExtensions
             ?.ImplementationInstance as IConfiguration;
 
         if (configuration is null)
+        {
             return false;
+        }
 
         connectionString = configuration.GetConnectionString("ApplicationInsights");
         return true;
@@ -116,11 +122,15 @@ public static class ServiceCollectionExtensions
     {
         var envServiceName = Environment.GetEnvironmentVariable("OTEL_SERVICE_NAME");
         if (!string.IsNullOrWhiteSpace(envServiceName))
+        {
             return envServiceName.Trim();
+        }
 
         var assemblyServiceName = System.Reflection.Assembly.GetEntryAssembly()?.GetName().Name;
         if (!string.IsNullOrWhiteSpace(assemblyServiceName))
+        {
             return assemblyServiceName;
+        }
 
         return "unknown_service:dotnet";
     }

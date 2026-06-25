@@ -92,7 +92,11 @@ public sealed class OpenTelemetryJobTelemetry : IJobTelemetry
         {
             lock (this)
             {
-                if (_completed) return;
+                if (_completed)
+                {
+                    return;
+                }
+
                 _completed = true;
                 _stopwatch.Stop();
 
@@ -103,7 +107,9 @@ public sealed class OpenTelemetryJobTelemetry : IJobTelemetry
                     .WithProperties(_properties);
 
                 if (additionalMetrics is not null)
+                {
                     builder.WithProperties(additionalMetrics);
+                }
 
                 _auditLogger.LogAudit(builder.Build());
 
@@ -119,7 +125,10 @@ public sealed class OpenTelemetryJobTelemetry : IJobTelemetry
             lock (this)
             {
                 if (_completed)
+                {
                     return Task.CompletedTask;
+                }
+
                 _completed = true;
                 _stopwatch.Stop();
 
@@ -133,7 +142,9 @@ public sealed class OpenTelemetryJobTelemetry : IJobTelemetry
                     .WithProperties(_properties);
 
                 if (additionalProperties is not null)
+                {
                     builder.WithProperties(additionalProperties);
+                }
 
                 _auditLogger.LogAudit(builder.Build());
 
@@ -151,7 +162,10 @@ public sealed class OpenTelemetryJobTelemetry : IJobTelemetry
         public ValueTask DisposeAsync()
         {
             if (!_completed)
+            {
                 Complete();
+            }
+
             return ValueTask.CompletedTask;
         }
     }

@@ -94,7 +94,9 @@ public class AuditLoggerTests
             if (state is IEnumerable<KeyValuePair<string, object?>> kvps)
             {
                 foreach (var (key, value) in kvps)
+                {
                     scopeDictionary[key] = value;
+                }
             }
             else
             {
@@ -127,7 +129,9 @@ public class AuditLoggerTests
             public void Dispose()
             {
                 if (scopes.Count > 0)
+                {
                     scopes.Pop();
+                }
             }
         }
     }

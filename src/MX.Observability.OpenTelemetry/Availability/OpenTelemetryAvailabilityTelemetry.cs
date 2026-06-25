@@ -22,10 +22,14 @@ public sealed class OpenTelemetryAvailabilityTelemetry : IAvailabilityTelemetry
         ArgumentNullException.ThrowIfNull(entry);
 
         if (string.IsNullOrWhiteSpace(entry.Name))
+        {
             throw new ArgumentException("Availability name must be provided.", nameof(entry));
+        }
 
         if (entry.Duration < TimeSpan.Zero)
+        {
             throw new ArgumentOutOfRangeException(nameof(entry), "Availability duration cannot be negative.");
+        }
 
         var availabilityId = !string.IsNullOrWhiteSpace(entry.Id)
             ? entry.Id
@@ -41,17 +45,23 @@ public sealed class OpenTelemetryAvailabilityTelemetry : IAvailabilityTelemetry
         };
 
         if (!string.IsNullOrWhiteSpace(entry.RunLocation))
+        {
             state.Add(new KeyValuePair<string, object?>("microsoft.availability.runLocation", entry.RunLocation));
+        }
 
         if (!string.IsNullOrWhiteSpace(entry.Message))
+        {
             state.Add(new KeyValuePair<string, object?>("microsoft.availability.message", entry.Message));
+        }
 
         if (entry.Properties is not null)
         {
             foreach (var (key, value) in entry.Properties)
             {
                 if (string.IsNullOrWhiteSpace(key))
+                {
                     throw new ArgumentException("Availability property keys must be non-empty.", nameof(entry));
+                }
 
                 state.Add(new KeyValuePair<string, object?>(key, value));
             }

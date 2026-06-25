@@ -75,7 +75,9 @@ internal sealed class ParsedFilterRules
     private static HashSet<string> ParseCsvToHashSet(string? csv)
     {
         if (string.IsNullOrWhiteSpace(csv))
+        {
             return new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        }
 
         return new HashSet<string>(
             csv.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries),
@@ -85,7 +87,9 @@ internal sealed class ParsedFilterRules
     private static string[] ParseCsvToArray(string? csv)
     {
         if (string.IsNullOrWhiteSpace(csv))
+        {
             return Array.Empty<string>();
+        }
 
         return csv.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
     }
@@ -93,7 +97,9 @@ internal sealed class ParsedFilterRules
     private static LogLevel ParseSeverity(string? severity)
     {
         if (string.IsNullOrWhiteSpace(severity))
+        {
             return LogLevel.Warning;
+        }
 
         return severity.Trim().ToLowerInvariant() switch
         {
@@ -111,7 +117,9 @@ internal sealed class ParsedFilterRules
     private static (int Min, int Max)[] ParseStatusCodeRanges(string? ranges)
     {
         if (string.IsNullOrWhiteSpace(ranges))
+        {
             return Array.Empty<(int, int)>();
+        }
 
         var result = new List<(int Min, int Max)>();
         foreach (var part in ranges.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
