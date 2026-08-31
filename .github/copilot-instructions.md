@@ -5,7 +5,7 @@ This repository publishes OpenTelemetry observability packages with Azure Monito
 ## Runtime and layout
 
 - SDK: `10.0.301` from `global.json`; package and test projects target `net9.0` and `net10.0`.
-- Solution: `src/MX.Observability.OpenTelemetry.sln`.
+- Solution: `src/MX.Observability.OpenTelemetry.slnx`.
 - Core package: `MX.Observability.OpenTelemetry`.
 - Adapters: `MX.Observability.OpenTelemetry.AspNetCore` and `MX.Observability.OpenTelemetry.WorkerService`.
 - Tests: `MX.Observability.OpenTelemetry.Tests`.
@@ -23,10 +23,10 @@ This repository publishes OpenTelemetry observability packages with Azure Monito
 ## Validation
 
 ```pwsh
-dotnet build src/MX.Observability.OpenTelemetry.sln
-dotnet test src/MX.Observability.OpenTelemetry.sln
-dotnet test src/MX.Observability.OpenTelemetry.sln --filter "FullyQualifiedName~MyTestClass.MyTestMethod"
-dotnet format src/MX.Observability.OpenTelemetry.sln --verify-no-changes
+dotnet build src/MX.Observability.OpenTelemetry.slnx
+dotnet test src/MX.Observability.OpenTelemetry.slnx
+dotnet test src/MX.Observability.OpenTelemetry.slnx --filter "FullyQualifiedName~MyTestClass.MyTestMethod"
+dotnet format src/MX.Observability.OpenTelemetry.slnx --verify-no-changes
 ```
 
 Package roles and instrumentation boundaries are documented in `README.md` and `docs/README.md`.
