@@ -4,7 +4,7 @@ Multi-target .NET observability libraries built on OpenTelemetry with Azure Moni
 
 ## Locations
 
-- Solution: `src/MX.Observability.OpenTelemetry.sln`
+- Solution: `src/MX.Observability.OpenTelemetry.slnx`
 - Core package: `src/MX.Observability.OpenTelemetry`
 - Host adapters: `src/MX.Observability.OpenTelemetry.AspNetCore`, `src/MX.Observability.OpenTelemetry.WorkerService`
 - Tests: `src/MX.Observability.OpenTelemetry.Tests`
@@ -13,10 +13,10 @@ Multi-target .NET observability libraries built on OpenTelemetry with Azure Moni
 ## Commands
 
 ```pwsh
-dotnet build src/MX.Observability.OpenTelemetry.sln
-dotnet test src/MX.Observability.OpenTelemetry.sln
-dotnet test src/MX.Observability.OpenTelemetry.sln --filter "FullyQualifiedName~MyTestClass.MyTestMethod"
-dotnet format src/MX.Observability.OpenTelemetry.sln --verify-no-changes
+dotnet build src/MX.Observability.OpenTelemetry.slnx
+dotnet test src/MX.Observability.OpenTelemetry.slnx
+dotnet test src/MX.Observability.OpenTelemetry.slnx --filter "FullyQualifiedName~MyTestClass.MyTestMethod"
+dotnet format src/MX.Observability.OpenTelemetry.slnx --verify-no-changes
 ```
 
 ## Constraints
