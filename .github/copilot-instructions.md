@@ -1,38 +1,32 @@
 # Copilot Instructions
 
-> Shared conventions: see [`.github-copilot/.github/instructions/dotnet-nuget-library.instructions.md`](../../.github-copilot/.github/instructions/dotnet-nuget-library.instructions.md) for general .NET NuGet library standards.
+This repository publishes OpenTelemetry observability packages with Azure Monitor export, configurable filtering, structured auditing, and job lifecycle telemetry.
 
-## Project Overview
+## Runtime and layout
 
-This repository contains the MX OpenTelemetry observability libraries for .NET 9/10. It ships three NuGet packages:
-- `MX.Observability.OpenTelemetry` (hosting-agnostic core)
-- `MX.Observability.OpenTelemetry.AspNetCore` (ASP.NET Core adapter)
-- `MX.Observability.OpenTelemetry.WorkerService` (Worker Service / Azure Functions isolated adapter)
+- SDK: `10.0.301` from `global.json`; package and test projects target `net9.0` and `net10.0`.
+- Solution: `src/MX.Observability.OpenTelemetry.sln`.
+- Core package: `MX.Observability.OpenTelemetry`.
+- Adapters: `MX.Observability.OpenTelemetry.AspNetCore` and `MX.Observability.OpenTelemetry.WorkerService`.
+- Tests: `MX.Observability.OpenTelemetry.Tests`.
 
-## Architecture
+## Repository rules
 
-- Solution: `src/MX.Observability.OpenTelemetry.sln`
-- Core services are registered from `src/MX.Observability.OpenTelemetry/Extensions/ServiceCollectionExtensions.cs` via `AddObservabilityCore()`.
-- Host adapters expose `AddObservability()` in:
-  - `src/MX.Observability.OpenTelemetry.AspNetCore/ServiceCollectionExtensions.cs`
-  - `src/MX.Observability.OpenTelemetry.WorkerService/ServiceCollectionExtensions.cs`
-- Filtering options bind from `OpenTelemetry:Filtering` (`TelemetryFilterOptions.SectionName`) and include dependency, request, and log rules.
-- Auditing primitives live under `src/MX.Observability.OpenTelemetry/Auditing/`; job telemetry abstractions and implementation live under `src/MX.Observability.OpenTelemetry/Jobs/`.
+- Put hosting-agnostic filtering, auditing, and job telemetry behavior in the core package.
+- Keep adapter packages focused on host pipeline, instrumentation, and exporter registration.
+- Preserve `OpenTelemetry:Filtering` configuration, public registration methods, telemetry retention semantics, structured audit data, and job lifecycle behavior.
+- Treat extension methods, options, auditing primitives, and job telemetry interfaces as public package contracts.
+- Keep ASP.NET Core and Worker Service adapter boundaries distinct.
+- Package IDs, target frameworks, package READMEs, generated package metadata, and NBGV configuration in `version.json` are release boundaries.
+- Never add credentials or publish packages during routine validation.
 
-## Build and Test
+## Validation
 
-- Build: `dotnet build src/MX.Observability.OpenTelemetry.sln`
-- Test: `dotnet test src/MX.Observability.OpenTelemetry.sln`
-- Package outputs are generated on build (`GeneratePackageOnBuild=true` in package projects).
+```pwsh
+dotnet build src/MX.Observability.OpenTelemetry.sln
+dotnet test src/MX.Observability.OpenTelemetry.sln
+dotnet test src/MX.Observability.OpenTelemetry.sln --filter "FullyQualifiedName~MyTestClass.MyTestMethod"
+dotnet format src/MX.Observability.OpenTelemetry.sln --verify-no-changes
+```
 
-## Conventions
-
-- Target frameworks are `net9.0` and `net10.0` across package and test projects.
-- Versioning is Nerdbank.GitVersioning from repo root `version.json`.
-- Keep package README files in each package project folder aligned with package behavior (`PackageReadmeFile=README.md`).
-- Prefer adding behavior in the core package and only host-pipeline wiring in adapter packages.
-- Add or update tests in `src/MX.Observability.OpenTelemetry.Tests/` when changing filtering, auditing, or job telemetry logic.
-
-## CI/CD
-
-Workflows in `.github/workflows/` cover build and test, PR verification, code quality, release tagging, and NuGet publishing. Release publishing is split across `release-version-and-tag.yml` then `release-publish-nuget.yml`.
+Package roles and instrumentation boundaries are documented in `README.md` and `docs/README.md`.
