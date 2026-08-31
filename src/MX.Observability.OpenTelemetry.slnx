@@ -1,0 +1,11 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="MX.Observability.OpenTelemetry.AspNetCore/MX.Observability.OpenTelemetry.AspNetCore.csproj" />
+  <Project Path="MX.Observability.OpenTelemetry.Tests/MX.Observability.OpenTelemetry.Tests.csproj" />
+  <Project Path="MX.Observability.OpenTelemetry.WorkerService/MX.Observability.OpenTelemetry.WorkerService.csproj" />
+  <Project Path="MX.Observability.OpenTelemetry/MX.Observability.OpenTelemetry.csproj" />
+</Solution>
